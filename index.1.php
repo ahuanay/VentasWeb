@@ -22,6 +22,7 @@
     $tienda = $_SESSION['tienda'];
     $ArrayTiendas = $_SESSION['tiendas'];
     $resultLMV = $get->getSP("get_ProductosxIdPrecioVentaxTiendaxTipoVenta(NULL,'$tienda')");
+    $resultLMT = $get->getSP("get_ProductosxIdPrecioVentaxTiendaxTipoVenta(NULL,'$tienda')");
     $resultBan = $get->getSP("get_Banner('$tienda')");
 ?>
 
@@ -187,6 +188,42 @@
                         </div>
                     </div>
                 <?php }} $resultLMV->free_result(); ?>
+            </div>
+        </section>
+        <?php } ?>
+        <?php if(mysqli_num_rows($resultLMT) > 0) { ?>
+        <section class="mt-4">
+            <blockquote><h5 class="font-weight-bold light-blue-text uppercase">Canje puntos bonus (PB)</h5></blockquote>
+            <div class="progress hide" id="PreloaderB">
+                <div class="indeterminate"></div>
+            </div>
+            <div class="row">
+                <?php while ($rowLMT = $resultLMT->fetch_assoc()) { 
+                    if($rowLMT['CanjeBonos'] != NULL){ ?>
+                    <div class="col s10 m4 l3 offset-s1">
+                        <div class="card medium">
+                            <div class="card-image">
+                                <img src="<?php echo $rowLMT['Imagen']; ?>" class=" materialboxed img-card">
+                            </div>
+                            <div class="card-stacked center">
+                                <div class="card-content">
+                                    <a href="" class="card-title detalle_prod">
+                                        <?php echo $rowLMT['Producto']; ?>
+                                        <span class="IdPrecioVenta" hidden><?php echo $rowLMT['IdPrecioVenta'] ?></span>
+                                    </a>
+                                </div>
+                                <div class="card-action">
+                                    <p class="font-weight-bold">
+                                        <?php
+                                            $ArrayPunto = explode(",", $rowLMT['CanjeBonos']);
+                                            echo $ArrayPunto[0]; 
+                                        ?> PB
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php }} $resultLMT->free_result(); ?>
             </div>
         </section>
         <?php } ?>

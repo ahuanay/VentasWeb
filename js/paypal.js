@@ -15,8 +15,8 @@ paypal.Buttons({
     // Finalize the transaction
     onApprove: function(data, actions) {
         return actions.order.capture().then(function(details) {
+            ComprarAhora();
             alertify.alert("Compra concluida con éxito", function(){
-                ComprarAhora();
                 location.reload();
             });
            

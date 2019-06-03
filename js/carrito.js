@@ -78,8 +78,9 @@ $('.Cantidad').change(function (e) {
         success: function (response) { 
             var stock = parseInt(response);
             if(stock < Cantidad) {
-                alertify.alert('No hay Stock', 'Por favor ingrese una cantidad inferior o igual a: ' + stock);
-                CambiarCant(Id, stock);
+                alertify.alert('No hay Stock', 'Por favor ingrese una cantidad inferior o igual a: ' + stock, function(){
+                    CambiarCant(Id, stock);
+                });
             } else {
                 CambiarCant(Id, Cantidad);
             }
